@@ -1,10 +1,14 @@
 import './App.css'
-import Header from './components/header'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Content from './components/Content'
 
 function App() {
   return (
-    <div>
+    <div className='flex flex-col h-screen justify-between'>
       <Header/>
+      <Content/>
+      <Footer/>
     </div>
   )
 }
