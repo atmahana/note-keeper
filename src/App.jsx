@@ -5,7 +5,7 @@ import Content from './components/Content'
 
 function App() {
   return (
-    <div className='flex flex-col h-screen justify-between'>
+    <div className='h-screen'>
       <Header/>
       <Content/>
       <Footer/>

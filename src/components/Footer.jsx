@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-white">
       <div class="w-full mx-auto p-4 flex justify-center">
-        <p className="text-amber-500 font-medium">© {currentYear} Zubair Adham. All Rights Reserved.</p>
+        <p className="text-amber-200">© {currentYear} Zubair Adham. All Rights Reserved.</p>
       </div>
     </footer>
   );
