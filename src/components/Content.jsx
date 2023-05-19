@@ -13,7 +13,7 @@ function createNote(noteEntry){
 
 export default function Content() {
   return (
-    <div className="flex gap-5 min-w-full sm:px-12 py-5">
+    <div className="flex flex-col sm:flex-row items-center sm:items-start sm:justify-start gap-5 min-w-full sm:px-12 py-5 overflow-auto">
       {notes.map(createNote)}
     </div>
   );

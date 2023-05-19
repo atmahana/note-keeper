@@ -5,7 +5,7 @@ import Content from './components/Content'
 
 function App() {
   return (
-    <div className='h-screen'>
+    <div className='h-screen relative'>
       <Header/>
       <Content/>
       <Footer/>
