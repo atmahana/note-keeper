@@ -1,5 +1,8 @@
-function Note(props) {
+import { useState } from "react";
 
+function Note(props) {
+  const [note, addNote] = useState("");
+  
   return (
     <div className="bg-amber-100 hover:bg-amber-300 hover:drop-shadow-sm min-w-min max-w-xs drop-shadow-md rounded-lg px-4 py-5 my-2">
       <h1 className="font-bold text-xl">{props.title}</h1>
