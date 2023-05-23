@@ -33,14 +33,14 @@ function NoteForm(props) {
     <div className="flex min-w-full justify-center">
       <form className="relative flex flex-col w-96 h-auto drop-shadow-md">
         <input
-          className="p-5 font-bold text-xl rounded-t-lg"
+          className="p-5 font-bold text-xl rounded-t-lg bg-slate-50"
           onChange={handleInput}
           name="title"
           placeholder="Title"
           value={note.title}
         />
         <textarea
-          className="py-10 px-5 rounded-b-lg"
+          className="py-10 px-5 rounded-b-lg bg-slate-50"
           onChange={handleInput}
           name="content"
           placeholder="Take a note..."

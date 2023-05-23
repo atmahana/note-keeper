@@ -3,16 +3,24 @@ import CircleButton from "./CircleButton";
 import TrashIcon from "./TrashIcon";
 
 function Note(props) {
-
-  function handleClick(){
+  function handleClick() {
     props.onDelete(props.id);
   }
-
+  // bg-amber-100 hover:bg-amber-300 hover:drop-shadow-sm
   return (
-    <div className="bg-amber-100 hover:bg-amber-300 hover:drop-shadow-sm min-w-min max-w-xs drop-shadow-md rounded-lg px-4 py-5 my-2">
-      <h1 className="font-bold text-xl">{props.title}</h1>
-      <p>{props.content}</p>
-      <CircleButton onClick={handleClick} type="delete" text="-"/>
+    <div className="card w-96 bg-amber-100 text-black drop-shadow hover:drop-shadow-sm">
+      <div className="card-body">
+        <h1 className="card-title">{props.title}</h1>
+        <p>{props.content}</p>
+        <div className="card-actions justify-end">
+          <button
+            onClick={handleClick}
+            className="btn btn-warning hover:bg-amber-600 hover:text-white"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

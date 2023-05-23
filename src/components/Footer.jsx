@@ -2,8 +2,9 @@ export default function Footer() {
     const date = new Date();
     let currentYear = date.getFullYear();
   return (
-    <footer className="fixed bottom-0 right-0 left-0">
-      <div className="w-full mx-auto p-4 flex justify-center">
+    // fixed bottom-0 right-0 left-0 : footer class
+    <footer className="fixed bottom-0 footer footer-center p-4 bg-base-300 text-base-content bg-transparent">
+      <div className="">
         <p className="text-amber-500">© {currentYear} Zubair Adham. All Rights Reserved.</p>
       </div>
     </footer>
