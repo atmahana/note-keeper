@@ -6,7 +6,7 @@ import Content from './layouts/Content'
 function App() {
 
   return (
-    <div className='h-screen relative bg-slate-200'>
+    <div className='flex flex-col h-screen relative'>
       <Header/>
       <Content/>
       <Footer/>
