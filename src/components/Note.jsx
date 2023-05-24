@@ -1,12 +1,9 @@
-import { useState } from "react";
-import CircleButton from "./CircleButton";
-import TrashIcon from "./TrashIcon";
+import TrashIcon from "./Icons/TrashIcon";
 
 function Note(props) {
   function handleClick() {
     props.onDelete(props.id);
   }
-  // bg-amber-100 hover:bg-amber-300 hover:drop-shadow-sm
   return (
     <div className="card w-96 bg-amber-100 text-black drop-shadow hover:drop-shadow-sm">
       <div className="card-body">
@@ -15,9 +12,9 @@ function Note(props) {
         <div className="card-actions justify-end">
           <button
             onClick={handleClick}
-            className="btn btn-warning hover:bg-amber-600 hover:text-white"
+            className="btn btn-circle btn-warning hover:bg-amber-600 hover:text-white"
           >
-            Delete
+            <TrashIcon/>
           </button>
         </div>
       </div>
