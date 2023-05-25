@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 
 export default function Header() {
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "bumblebee"
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
   function handleToggle(event) {
     if (event.target.checked) setTheme("dark");
-    else setTheme("bumblebee");
+    else setTheme("light");
   }
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Header() {
             <input
               type="checkbox"
               onChange={handleToggle}
-              checked={theme === "bumblebee" ? false : true}
+              checked={theme === "light" ? false : true}
             />
             <svg
               className="swap-on fill-current w-10 h-10"

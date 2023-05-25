@@ -7,7 +7,7 @@ export default {
   daisyui: {
     themes: [
       {
-        bumblebee: {
+        light: {
           ...require("daisyui/src/colors/themes")["[data-theme=light]"],
           primary: "#f59e0b",
           "primary-focus": "#92400e",
