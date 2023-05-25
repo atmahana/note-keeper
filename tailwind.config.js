@@ -13,8 +13,6 @@ export default {
           "primary-focus": "#92400e",
           secondary: "#fef3c7",
           "secondary-focus": "#fcd34d",
-          "base-100": "#ffffff",
-          "base-200": "#f5f5f5",
         },
       },
       {

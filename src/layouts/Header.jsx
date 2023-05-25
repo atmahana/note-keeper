@@ -21,7 +21,7 @@ export default function Header() {
     <nav className="navbar bg-base-100 sm:px-12 py-5 px-5 drop-shadow z-10">
       <div className="flex-1">
         <a className="btn btn-ghost text-3xl normal-case text-primary font-semibold">
-          Keeper
+          Note
         </a>
       </div>
 

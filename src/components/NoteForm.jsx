@@ -1,25 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import AddIcon from "./Icons/AddIcon";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-const contentExpand = "p-5 rounded-b-xl bg-base-100";
-const contentMini = "p-5 rounded-xl bg-base-100";
+const contentExpand = "p-5 rounded-b-xl bg-base-100 input-bordered input-primary";
+const contentMini = "p-5 rounded-xl bg-base-100 input-bordered input-primary";
 
 function NoteForm(props) {
-  const wrapperRef = useRef(null);
-  removeExpand(wrapperRef);
-
   const [note, setNote] = useState({
     title: "",
     content: "",
   });
 
+  const wrapperRef = useRef(null);
+  removeExpand(wrapperRef);
+
   const [isExpanded, setExpanded] = useState(false);
+
+  const [inputRef] = useAutoAnimate();
 
   function removeExpand(ref) {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          setExpanded(false)
+          setExpanded(false);
         }
       }
       document.addEventListener("mousedown", handleClickOutside);
@@ -54,12 +57,12 @@ function NoteForm(props) {
   }
 
   return (
-    <div ref={wrapperRef} className="flex min-w-full justify-center">
-      <form className="card w-1/4 bg-base-100 shadow-lg">
-        <div className="card-body p-0.5">
+    <div className="flex min-w-full justify-center">
+      <form ref={wrapperRef} className="card w-4/5 lg:w-1/2 xl:w-1/3 bg-base-100 shadow-lg" >
+        <div className="card-body p-0.5 border-transparent focus:border-transparent focus:ring-0" ref={inputRef}>
           {isExpanded && (
             <input
-              className="p-5 font-bold text-xl rounded-t-xl bg-base-100"
+              className="p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary"
               onChange={handleInput}
               name="title"
               placeholder="Title"
