@@ -66,7 +66,7 @@ export default function Header() {
             <li>
               <a className="justify-between">
                 Profile
-                <span className="badge">New</span>
+                <span className="badge badge-accent">New</span>
               </a>
             </li>
             <li>
