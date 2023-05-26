@@ -1,4 +1,4 @@
-import Note from "../components/Note"
+import Note from "../components/Note";
 import NoteForm from "../components/NoteForm";
 import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -23,8 +23,13 @@ export default function Content() {
 
   return (
     <div className="flex flex-col flex-1 items-center sm:items-start sm:justify-start gap-5 min-w-full min-h-max sm:px-12 py-5 bg-base-200 z-0">
-      <NoteForm onAdd={addNote} />
-      <div ref={parent} className="flex flex-col sm:flex-row gap-5 flex-wrap justify-center">
+      <div className="flex min-w-full justify-center">
+        <NoteForm onAdd={addNote} />
+      </div>
+      <div
+        ref={parent}
+        className="flex flex-col sm:flex-row gap-5 flex-wrap w-full border justify-center align-center sm:justify-between border-sky-500"
+      >
         {notes.map((noteItem, index) => {
           return (
             <Note

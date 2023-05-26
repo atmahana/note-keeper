@@ -22,7 +22,7 @@ function Note(props) {
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-44"
+              className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40"
             >
               <li>
                 <button className="">
