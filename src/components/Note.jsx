@@ -1,6 +1,12 @@
 import TrashIcon from "./Icons/TrashIcon";
+import EditIcon from "./Icons/EditIcon";
+import PinIcon from "./Icons/PinIcon";
+import { useState } from "react";
+import MenuIcon from "./Icons/MenuIcon";
 
 function Note(props) {
+  const [isPinned, setPin] = useState(false);
+
   function handleClick() {
     props.onDelete(props.id);
   }
@@ -10,12 +16,31 @@ function Note(props) {
         <h1 className="card-title">{props.title}</h1>
         <p>{props.content}</p>
         <div className="card-actions justify-end">
-          <button
-            onClick={handleClick}
-            className="btn btn-circle btn-primary"
-          >
-            <TrashIcon/>
-          </button>
+          <div className="dropdown dropdown-top">
+            <label tabIndex={0} className="btn btn-circle btn-ghost m-1">
+              <MenuIcon />
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-44"
+            >
+              <li>
+                <button className="">
+                  <PinIcon /> Pin
+                </button>
+              </li>
+              <li>
+                <button className="">
+                  <EditIcon /> Edit
+                </button>
+              </li>
+              <li>
+                <button onClick={handleClick} className="">
+                  <TrashIcon /> Delete
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
