@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import AddIcon from "./Icons/AddIcon";
+import {AddIcon} from "./Icons/Icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const titleMini ="p-5 font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";

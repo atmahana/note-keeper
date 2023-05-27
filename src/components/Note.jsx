@@ -1,11 +1,18 @@
-import TrashIcon from "./Icons/TrashIcon";
-import EditIcon from "./Icons/EditIcon";
-import PinIcon from "./Icons/PinIcon";
+import { TrashIcon, EditIcon, MenuBurgerIcon } from "./Icons/Icons";
+import { PinSlashIcon, PinFillIcon } from "./Icons/PinIcon";
 import { useState } from "react";
-import MenuIcon from "./Icons/MenuIcon";
 
 function Note(props) {
   const [isPinned, setPin] = useState(false);
+
+  function pinNnote() {
+    setPin(!isPinned);
+  }
+
+  const currentTheme = document
+    .querySelector("html")
+    .getAttribute("data-theme");
+  console.log(currentTheme);
 
   function handleClick() {
     props.onDelete(props.id);
@@ -18,24 +25,25 @@ function Note(props) {
         <div className="card-actions justify-end">
           <div className="dropdown dropdown-top">
             <label tabIndex={0} className="btn btn-circle btn-ghost m-1">
-              <MenuIcon />
+              <MenuBurgerIcon />
             </label>
             <ul
               tabIndex={0}
               className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40"
             >
               <li>
-                <button className="">
-                  <PinIcon /> Pin
+                <button onClick={pinNnote}>
+                  {isPinned ? <PinSlashIcon />  : <PinFillIcon />}
+                  {isPinned ? 'Unpin'  : 'Pin'}
                 </button>
               </li>
               <li>
-                <button className="">
+                <button>
                   <EditIcon /> Edit
                 </button>
               </li>
               <li>
-                <button onClick={handleClick} className="">
+                <button onClick={handleClick}>
                   <TrashIcon /> Delete
                 </button>
               </li>
