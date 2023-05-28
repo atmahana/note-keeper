@@ -5,11 +5,16 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 const titleMini ="p-5 font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";
 const titleExpand = "p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary";
 
-function NoteForm(props) {
+function NoteForm(newNote) {
+  const date = new Date().toLocaleDateString();
+
   const [note, setNote] = useState({
     title: "",
     content: "",
+    dateCreated: date
   });
+
+  const charLimit = 100;
 
   const wrapperRef = useRef(null);
   removeExpand(wrapperRef);
@@ -38,23 +43,30 @@ function NoteForm(props) {
   function handleInput(event) {
     const { name, value } = event.target;
 
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
+    if((charLimit - value.length >= 0)){
+      setNote((prevNote) => {
+        return {
+          ...prevNote,
+          [name]: value,
+        };
+      });
+    }
   }
 
   function expand() {
     setExpanded(true);
   }
 
+  function calcLimit(){
+    return charLimit - note.content.length;
+  }
+
   function submitNote(event) {
-    props.onAdd(note);
+    newNote.onAdd(note);
     setNote({
       title: "",
       content: "",
+      dateCreated: date
     });
     event.preventDefault();
   }
@@ -62,7 +74,7 @@ function NoteForm(props) {
   return (
     <form
       ref={wrapperRef}
-      className="card w-4/5 lg:w-1/2 xl:w-1/3 bg-base-100 shadow-lg"
+      className="card w-4/5 lg:w-1/2 xl:w-1/3 bg-base-100 shadow-md"
     >
       <div
         className="card-body p-0.5 border-transparent focus:border-transparent focus:ring-0"
@@ -82,16 +94,17 @@ function NoteForm(props) {
             className="p-5 rounded-b-xl bg-base-100 input-bordered input-primary"
             name="content"
             placeholder="Take a note..."
-            rows="5"
+            rows="10"
             value={note.content}
           />
         )}
 
         {isExpanded && (
-          <div className="card-actions justify-end absolute bottom-5 right-5">
+          <div className="card-actions flex justify-between items-center p-5 absolute w-full bottom-0 pointer-events-none">
+          <small className="text-base">{calcLimit()} Remaining</small>
             <button
               onClick={submitNote}
-              className="btn btn-circle drop-shadow btn-primary"
+              className="btn btn-circle drop-shadow btn-primary pointer-events-auto"
             >
               <AddIcon />
             </button>
