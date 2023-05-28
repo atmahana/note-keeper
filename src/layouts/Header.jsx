@@ -26,13 +26,6 @@ export default function Header() {
       </div>
 
       <div className="flex-none gap-5">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered focus:input-primary"
-          />
-        </div>
         <div id="toggleTheme">
           <label className="swap swap-rotate">
             <input
