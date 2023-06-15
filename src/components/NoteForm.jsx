@@ -8,23 +8,22 @@ const titleMini =
 const titleExpand =
   "p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary";
 
+const DATE = new Date().toLocaleDateString();
+
 function NoteForm(newNote) {
-  const date = new Date().toLocaleDateString();
-
-  const [note, setNote] = useState({
-    title: "",
-    content: "",
-    dateCreated: date,
-  });
-
-  const charLimit = 100;
-
+  const { ref: wrapperRef, isExpanded, expand } = useExpand();
   const [inputRef] = useAutoAnimate({
     duration: 150,
     easing: "ease-in-out",
   });
 
-  const {ref: wrapperRef, isExpanded, expand} = useExpand();
+  const [note, setNote] = useState({
+    title: "",
+    content: "",
+    dateCreated: DATE,
+  });
+
+  const charLimit = 100;
 
   function handleInput(event) {
     const { name, value } = event.target;
@@ -49,7 +48,7 @@ function NoteForm(newNote) {
     setNote({
       title: "",
       content: "",
-      dateCreated: date,
+      dateCreated: DATE,
     });
   }
 
