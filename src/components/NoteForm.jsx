@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import {AddIcon} from "./Icons/Icons";
+import { useState } from "react";
+import { AddIcon } from "./Icons/Icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import useExpand from "../hooks/useExpand";
 
-const titleMini ="p-5 font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";
-const titleExpand = "p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary";
+const titleMini =
+  "p-5 font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";
+const titleExpand =
+  "p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary";
 
 function NoteForm(newNote) {
   const date = new Date().toLocaleDateString();
@@ -11,39 +14,22 @@ function NoteForm(newNote) {
   const [note, setNote] = useState({
     title: "",
     content: "",
-    dateCreated: date
+    dateCreated: date,
   });
 
   const charLimit = 100;
 
-  const wrapperRef = useRef(null);
-  removeExpand(wrapperRef);
-
-  const [isExpanded, setExpanded] = useState(false);
-
   const [inputRef] = useAutoAnimate({
     duration: 150,
-    easing: "ease-in-out"
+    easing: "ease-in-out",
   });
 
-  function removeExpand(ref) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setExpanded(false);
-        }
-      }
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+  const {ref: wrapperRef, isExpanded, expand} = useExpand();
 
   function handleInput(event) {
     const { name, value } = event.target;
 
-    if((charLimit - value.length >= 0)){
+    if (charLimit - value.length >= 0) {
       setNote((prevNote) => {
         return {
           ...prevNote,
@@ -53,22 +39,18 @@ function NoteForm(newNote) {
     }
   }
 
-  function expand() {
-    setExpanded(true);
-  }
-
-  function calcLimit(){
+  function calcLimit() {
     return charLimit - note.content.length;
   }
 
   function submitNote(event) {
+    event.preventDefault();
     newNote.onAdd(note);
     setNote({
       title: "",
       content: "",
-      dateCreated: date
+      dateCreated: date,
     });
-    event.preventDefault();
   }
 
   return (
@@ -101,7 +83,7 @@ function NoteForm(newNote) {
 
         {isExpanded && (
           <div className="card-actions flex justify-between items-center p-5 absolute w-full bottom-0 pointer-events-none">
-          <small className="text-base">{calcLimit()} Remaining</small>
+            <small className="text-base">{calcLimit()} Remaining</small>
             <button
               onClick={submitNote}
               className="btn btn-circle drop-shadow btn-primary pointer-events-auto"
