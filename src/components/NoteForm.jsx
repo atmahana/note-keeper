@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { AddIcon } from "./Icons/Icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import useExpand from "../hooks/useExpand";
+import useInput from "../hooks/useInput";
 
 const titleMini =
   "p-5 font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";
 const titleExpand =
   "p-5 font-bold text-xl rounded-t-xl bg-base-100 input-bordered input-primary";
-
-const DATE = new Date().toLocaleDateString();
 
 function NoteForm(newNote) {
   const { ref: wrapperRef, isExpanded, expand } = useExpand();
@@ -17,39 +15,24 @@ function NoteForm(newNote) {
     easing: "ease-in-out",
   });
 
-  const [note, setNote] = useState({
-    title: "",
-    content: "",
-    dateCreated: DATE,
-  });
+  const {
+    inputs,
+    handleChangeValue: inputChangeHandler,
+    resetInput,
+    calcLimit,
+  } = useInput();
 
-  const charLimit = 100;
-
-  function handleInput(event) {
-    const { name, value } = event.target;
-
-    if (charLimit - value.length >= 0) {
-      setNote((prevNote) => {
-        return {
-          ...prevNote,
-          [name]: value,
-        };
-      });
-    }
-  }
-
-  function calcLimit() {
-    return charLimit - note.content.length;
-  }
+  const inputsNotNull =
+    inputs.title.trim() !== "" && inputs.content.trim() !== "";
+  const contentLOE100 = 100 - inputs.content.length >= 0;
+  const isValidInput = inputsNotNull && contentLOE100;
 
   function submitNote(event) {
     event.preventDefault();
-    newNote.onAdd(note);
-    setNote({
-      title: "",
-      content: "",
-      dateCreated: DATE,
-    });
+    if (isValidInput) {
+      newNote.onAdd(inputs);
+      resetInput();
+    }
   }
 
   return (
@@ -63,26 +46,30 @@ function NoteForm(newNote) {
       >
         <input
           className={isExpanded ? titleExpand : titleMini}
-          onChange={handleInput}
+          onChange={inputChangeHandler}
           onClick={expand}
           name="title"
           placeholder={isExpanded ? "Title" : "Take a note..."}
-          value={note.title}
+          value={inputs.title}
         />
         {isExpanded && (
           <textarea
-            onChange={handleInput}
+            onChange={inputChangeHandler}
             className="p-5 rounded-b-xl bg-base-100 input-bordered input-primary"
             name="content"
             placeholder="Take a note..."
             rows="10"
-            value={note.content}
+            value={inputs.content}
           />
         )}
 
         {isExpanded && (
           <div className="card-actions flex justify-between items-center p-5 absolute w-full bottom-0 pointer-events-none">
-            <small className="text-base">{calcLimit()} Remaining</small>
+            <small
+              className={contentLOE100 ? "text-base" : "text-base text-red-500"}
+            >
+              {calcLimit()} Remaining
+            </small>
             <button
               onClick={submitNote}
               className="btn btn-circle drop-shadow btn-primary pointer-events-auto"
