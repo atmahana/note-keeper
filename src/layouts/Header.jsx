@@ -1,21 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../context/ThemeProvider";
 
 export default function Header() {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
-
-  function handleToggle(event) {
-    if (event.target.checked) setTheme("dark");
-    else setTheme("light");
-  }
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    // add custom data-theme attribute to html tag required to update theme using DaisyUI
-    document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme]);
+  
+  const themeContext = useContext(ThemeContext)
 
   return (
     <nav className="navbar bg-base-100 sm:px-12 py-5 px-5 drop-shadow z-10">
@@ -30,8 +18,8 @@ export default function Header() {
           <label className="swap swap-rotate">
             <input
               type="checkbox"
-              onChange={handleToggle}
-              checked={theme === "light" ? false : true}
+              onChange={themeContext.handleToggle}
+              checked={themeContext.theme === "light" ? false : true}
             />
             <svg
               className="swap-on fill-current w-10 h-10"
