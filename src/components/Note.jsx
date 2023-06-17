@@ -1,22 +1,19 @@
 import { TrashIcon, EditIcon, MenuBurgerIcon } from "./Icons/Icons";
 import { PinSlashIcon, PinFillIcon } from "./Icons/PinIcon";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function Note(note) {
   const [isPinned, setPin] = useState(false);
+  const deleteBtnRef = useRef();
 
   function pinNnote() {
     setPin(!isPinned);
   }
 
-  const currentTheme = document
-    .querySelector("html")
-    .getAttribute("data-theme");
-  console.log(currentTheme);
-
   function handleClick() {
     note.onDelete(note.id);
   }
+
   return (
     <div className="card w-96 bg-secondary drop-shadow hover:drop-shadow-sm text-neutral">
       <div className="card-body">
@@ -34,18 +31,18 @@ function Note(note) {
                 className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40"
               >
                 <li>
-                  <button onClick={pinNnote}>
+                  <button id={note.id} onClick={pinNnote}>
                     {isPinned ? <PinSlashIcon /> : <PinFillIcon />}
                     {isPinned ? "Unpin" : "Pin"}
                   </button>
                 </li>
                 <li>
                   <button>
-                    <EditIcon /> Edit
+                    <EditIcon id={note.id} /> Edit
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleClick}>
+                  <button ref={deleteBtnRef} id={note.id} onClick={handleClick}>
                     <TrashIcon /> Delete
                   </button>
                 </li>

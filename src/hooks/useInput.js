@@ -17,30 +17,32 @@ const CHARLIMIT = 100;
 
 const inputReducer = (state, newState) => {
   if (newState.type === ACTIONS.INPUT) {
-    return { ...state, ...newState };
+    return { ...state, ...newState.inputsType };
   }
-
   if (newState.type === ACTIONS.RESET) {
     return initialState;
   }
-
   return initialState;
 };
 
 const useInput = () => {
-  const [inputsState, dispatch] = useReducer(inputReducer, initialState);
+  const [inputsState, setInputs] = useReducer(inputReducer, initialState);
 
   const handleChangeValue = (event) => {
     const { name, value: InputValue } = event.target;
 
-    dispatch({ type: ACTIONS.INPUT, [name]: InputValue });
+    setInputs({
+      type: ACTIONS.INPUT,
+      inputsType: { [name]: InputValue },
+    });
+
   };
 
   const resetInput = () => {
-    dispatch({ type: ACTIONS.RESET });
+    setInputs({ type: ACTIONS.RESET });
   };
 
-  const calcLimit = () => {
+  const calcRemaining = () => {
     return CHARLIMIT - inputsState.content.length;
   };
 
@@ -48,7 +50,7 @@ const useInput = () => {
     inputs: inputsState,
     handleChangeValue,
     resetInput,
-    calcLimit,
+    calcRemaining,
   };
 };
 
