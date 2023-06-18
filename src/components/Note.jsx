@@ -1,13 +1,14 @@
 import { TrashIcon, EditIcon, MenuBurgerIcon } from "./Icons/Icons";
 import { PinSlashIcon, PinFillIcon } from "./Icons/PinIcon";
-import { useRef, useState } from "react";
+import { useRef, useContext } from "react";
+import { NoteContext } from "../context/Notes/NoteProvider";
 
 function Note(note) {
-  const [isPinned, setPin] = useState(false);
   const deleteBtnRef = useRef();
+  const context = useContext(NoteContext);
 
   function pinNnote() {
-    setPin(!isPinned);
+    context.pinNote(note.id);
   }
 
   function handleClick() {
@@ -15,7 +16,7 @@ function Note(note) {
   }
 
   return (
-    <div className="card w-96 bg-secondary drop-shadow hover:drop-shadow-sm text-neutral">
+    <div className="card w-auto bg-secondary drop-shadow hover:drop-shadow-sm text-neutral">
       <div className="card-body">
         <h1 className="card-title">{note.title}</h1>
         <p className="whitespace-pre-wrap break-all">{note.content}</p>
@@ -31,9 +32,9 @@ function Note(note) {
                 className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40"
               >
                 <li>
-                  <button id={note.id} onClick={pinNnote}>
-                    {isPinned ? <PinSlashIcon /> : <PinFillIcon />}
-                    {isPinned ? "Unpin" : "Pin"}
+                  <button id={note.id} onClick={pinNnote}>Pin
+                    {/* {isPinned ? <PinSlashIcon /> : <PinFillIcon />}
+                    {isPinned ? "Unpin" : "Pin"} */}
                   </button>
                 </li>
                 <li>
