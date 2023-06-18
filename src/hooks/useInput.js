@@ -13,7 +13,7 @@ const initialState = {
   date: DATE,
 };
 
-const CHARLIMIT = 100;
+const CHARLIMIT = 250;
 
 const inputReducer = (state, newState) => {
   if (newState.type === ACTIONS.INPUT) {
