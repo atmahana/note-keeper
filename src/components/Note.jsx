@@ -1,17 +1,22 @@
 import { TrashIcon, EditIcon, MenuBurgerIcon } from "./Icons/Icons";
 import { PinSlashIcon, PinFillIcon } from "./Icons/PinIcon";
-import { useRef, useContext } from "react";
+import { useContext } from "react";
 import { NoteContext } from "../context/Notes/NoteProvider";
 
 function Note(note) {
-  const deleteBtnRef = useRef();
-  const context = useContext(NoteContext);
+  const {pinnedNotes} = useContext(NoteContext);
 
-  function pinNnote() {
-    context.pinNote(note.id);
+  const isPinned = pinnedNotes.some(pinnedNote => pinnedNote.id === note.id);
+
+  function pinHandler() {
+    note.onPin(note.id);
   }
 
-  function handleClick() {
+  function unpinHandler() {
+    note.onUnpin(note.id);
+  }
+
+  function deleteHandler() {
     note.onDelete(note.id);
   }
 
@@ -23,18 +28,21 @@ function Note(note) {
         <div className="flex items-center justify-between">
           <small className="text-base font-medium">{note.dateCreated}</small>
           <div className="card-actions justify-end text-base-content">
-            <div className="dropdown dropdown-top">
+            <div className="dropdown dropdown-top z-50">
               <label tabIndex={0} className="btn btn-circle btn-ghost">
                 <MenuBurgerIcon />
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40"
+                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-40 z-50"
               >
                 <li>
-                  <button id={note.id} onClick={pinNnote}>Pin
-                    {/* {isPinned ? <PinSlashIcon /> : <PinFillIcon />}
-                    {isPinned ? "Unpin" : "Pin"} */}
+                  <button
+                    id={note.id}
+                    onClick={isPinned ? unpinHandler : pinHandler}
+                  >
+                    {isPinned ? <PinSlashIcon /> : <PinFillIcon />}
+                    {isPinned ? "Unpin" : "Pin"}
                   </button>
                 </li>
                 <li>
@@ -43,7 +51,7 @@ function Note(note) {
                   </button>
                 </li>
                 <li>
-                  <button ref={deleteBtnRef} id={note.id} onClick={handleClick}>
+                  <button id={note.id} onClick={deleteHandler}>
                     <TrashIcon /> Delete
                   </button>
                 </li>

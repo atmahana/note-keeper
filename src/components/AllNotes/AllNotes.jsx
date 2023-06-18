@@ -3,10 +3,10 @@ import { useContext } from "react";
 import Note from "../Note";
 
 function AllNotes() {
-  const { notes, deleteNote } = useContext(NoteContext);
+  const { notes, deleteNote, pinNote } = useContext(NoteContext);
 
   return (
-    <div className="w-full grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 items-start p-8 md:p-5">
+    <div className="w-full grid lg:grid-cols-2 xl:grid-cols-3 gap-5 items-start p-8 md:p-5">
       {notes?.map((note) => {
         return (
           <Note
@@ -14,8 +14,9 @@ function AllNotes() {
             id={note.id}
             title={note.title}
             content={note.content}
-            dateCreated={note.dateCreated}
+            dateCreated={note.date}
             onDelete={deleteNote}
+            onPin={pinNote}
           />
         );
       })}
