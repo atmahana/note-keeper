@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { NoteContext } from "../context/Notes/NoteProvider";
 import PinnedNotes from "../components/PinnedNotes/PinnedNotes";
 import AllNotes from "../components/AllNotes/AllNotes";
+import EditNote from "../components/EditNote";
 
 const hasPinnedNotes = (
   <>
@@ -37,6 +38,7 @@ export default function Content() {
         <NoteForm onAdd={context.addNote} />
         <Search />
       </div>
+      <EditNote/>
       {context.pinnedNotes.length !== 0 && hasPinnedNotes}
       {context.notes.length !== 0 && hasNotes}
       {context.notes.length === 0 && noNotesAvailable}
