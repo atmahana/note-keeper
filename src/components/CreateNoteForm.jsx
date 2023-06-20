@@ -3,10 +3,12 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import useExpand from "../hooks/useExpand";
 import useInput from "../hooks/useInput";
 import { useRef, useState } from "react";
+import InputText from "./Form/InputText";
+import Textarea from "./Form/Textarea";
 
 const isEmpty = (value) => value.trim() === "";
 
-function NoteForm(newNote) {
+function CreateNoteForm(newNote) {
   const { ref: formRef, isExpanded, expand } = useExpand();
   const [formValidity, setValidity] = useState({
     title: true,
@@ -29,9 +31,9 @@ function NoteForm(newNote) {
   } = useInput();
 
   const inputWithId = {
-    ...inputsWithoutID, 
+    ...inputsWithoutID,
     id: Date.now(),
-  }
+  };
 
   function submitNote(event) {
     event.preventDefault();
@@ -58,12 +60,12 @@ function NoteForm(newNote) {
   }
 
   const titleMiniClass =
-    "font-bold text-xl rounded-xl bg-base-100 input-bordered input-primary";
-  const titleExpandedClass = `font-bold text-xl rounded-t-xl input-bordered ${
-    formValidity.title ? "input-primary bg-base-100" : "input-error bg-red-900"
+    "font-bold text-xl rounded-xl bg-base-100 input-primary";
+  const titleExpandedClass = `font-bold text-xl ${
+    formValidity.title ? "bg-base-100 input-primary" : "bg-red-900 input-error"
   }`;
 
-  const contentClass = `p-5 rounded-b-xl input-bordered ${
+  const contentClass = `${
     formValidity.content
       ? "input-primary bg-base-100"
       : "input-error bg-red-900"
@@ -75,32 +77,25 @@ function NoteForm(newNote) {
       className="card w-4/5 lg:w-1/2 xl:w-1/3 bg-base-100 shadow-md"
     >
       <div
-        className="card-body p-0.5 border-transparent focus:border-transparent focus:ring-0"
+        className="card-body gap-0.5 rounded-xl bg-transparent p-0"
         ref={wrapperRef}
       >
-        <div
-          className={isExpanded ? titleExpandedClass : titleMiniClass}
+        <InputText
           onClick={expand}
-        >
-          <input
-            ref={titleInputRef}
-            className="bg-transparent p-5"
-            onChange={inputChangeHandler}
-            name="title"
-            placeholder={isExpanded ? "Title" : "Take a note..."}
-            value={inputWithId.title}
-          />
-          {!formValidity.title && <p>Please enter the title!</p>}
-        </div>
+          ref={titleInputRef}
+          onChange={inputChangeHandler}
+          className={isExpanded ? titleExpandedClass : titleMiniClass}
+          value={inputWithId.title}
+          placeholder={isExpanded ? "Title" : "Take a note..."}
+        />
         {isExpanded && (
-          <textarea
+          <Textarea
             ref={contentInputRef}
-            onChange={inputChangeHandler}
             className={contentClass}
-            name="content"
-            placeholder="Take a note..."
-            rows="10"
+            onChange={inputChangeHandler}
             value={inputWithId.content}
+            rows="10"
+            placeholder="Take a note..."
           />
         )}
 
@@ -120,4 +115,4 @@ function NoteForm(newNote) {
   );
 }
 
-export default NoteForm;
+export default CreateNoteForm;

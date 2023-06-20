@@ -4,16 +4,19 @@ import Header from "./layouts/Header";
 import Content from "./layouts/Content";
 import ThemeContextProvider from "./context/ThemeProvider";
 import NoteProvider from "./context/Notes/NoteProvider";
+import ModalProvider from "./context/ModalProvider";
 
 function App() {
   return (
     <ThemeContextProvider>
       <NoteProvider>
-        <div className="flex flex-col h-screen relative">
-          <Header />
-          <Content />
-          <Footer />
-        </div>
+        <ModalProvider>
+          <div className="flex flex-col h-screen relative">
+            <Header />
+            <Content />
+            <Footer />
+          </div>
+        </ModalProvider>
       </NoteProvider>
     </ThemeContextProvider>
   );

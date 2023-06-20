@@ -36,7 +36,7 @@ const notesReducer = (state, newState) => {
   if (newState.type === ACTIONS.DELETE) {
     return {
       ...state,
-      notes: state.notes.filter(note => note.id !== newState.id),
+      notes: state.notes.filter((note) => note.id !== newState.id),
     };
   }
 
@@ -67,6 +67,10 @@ const notesReducer = (state, newState) => {
         (_, index) => index !== noteToUnpinIndex
       ),
     };
+  }
+
+  if (newState.type === ACTIONS.EDIT) {
+    const { id } = newState;
   }
 
   return state;
